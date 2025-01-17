@@ -124,3 +124,14 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+
+.contact-info {
+    border-left: 2px solid black; 
+    padding-left: 30px;
+    text-align: center;
+}
+
+.contact-image {
+    width: 230px
+}
