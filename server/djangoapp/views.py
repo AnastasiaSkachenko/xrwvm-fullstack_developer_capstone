@@ -14,7 +14,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .restapis import get_request, analyze_review_sentiments, post_review
 
-
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -92,7 +91,7 @@ def registration(request):
 #Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
     if(state == "All"):
-        endpoint = "/fetchDealers"
+        endpoint = "/fetchDealers/"
     else:
         endpoint = "/fetchDealers/"+state
     dealerships = get_request(endpoint)
@@ -123,10 +122,12 @@ def get_dealer_reviews(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request):
+    print(request.user.is_anonymous)
     if(request.user.is_anonymous == False):
         data = json.loads(request.body)
         try:
             response = post_review(data)
+            print(response.json())
             return JsonResponse({"status":200})
         except:
             return JsonResponse({"status":401,"message":"Error in posting review"})
